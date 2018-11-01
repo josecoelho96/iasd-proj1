@@ -137,7 +137,7 @@ class Game(games.Game):
 
     def result(self, s, a):
         """Returns the sucessor game state after playing move a at state s."""
-        raise NotImplementedError
+        print("[DEBUG] Performing action/move: {}".format(a))
 
     def load_board(self, f):
         """Loads a board from a file object f (with given format)
@@ -273,6 +273,7 @@ class Game(games.Game):
             black_player_stones, black_player_liberties,
             white_player_stones, white_player_liberties
         )
+        return self.state
 
 class State:
     """ Atari Go state."""
