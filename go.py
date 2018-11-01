@@ -15,7 +15,17 @@ class Game(games.Game):
 
     def terminal_test(self, s):
         """Returns a boolean of whether state s is terminal."""
-        raise NotImplementedError
+        # Either no valid actions or some liberty group empty
+        for liberty in s.black_liberties:
+            if not liberty:
+                return True
+
+        for liberty in s.white_liberties:
+            if not liberty:
+                return True
+
+        # if not returned yet, check actions
+        return not self.actions(s)
 
     def utility(self, s, p):
         """Returns the payoff of state s if it is terminal
