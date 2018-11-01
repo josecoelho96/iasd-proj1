@@ -111,7 +111,7 @@ class Game(games.Game):
                     # Check if the current position has at least an empty neighbour
                     if check_point_neighbours_empty((i, j), s.board_map, s.board_size):
                         print("[DEBUG] Empty neighbour found, valid move.")
-                        moves.append((s.to_move, i, j))
+                        moves.append((s.to_move, i + 1, j + 1))
                         continue
 
                     if s.to_move == 1: # Black player
@@ -122,7 +122,7 @@ class Game(games.Game):
                         # Check if is not the only liberty of a player's group.
                         if check_point_neighbours_occupied((i, j), '1', s.black_liberties):
                             print("[DEBUG] All neighbours occupied, but valid position.")
-                            moves.append((s.to_move, i, j))
+                            moves.append((s.to_move, i + 1, j + 1))
                     else: # White player
                         # Check if new stone will be circled by enemy stones (eye)
                         if check_if_eye((i, j), '2', s.board_map, s.board_size):
@@ -131,7 +131,7 @@ class Game(games.Game):
                         # Check if is not the only liberty of a player's group.
                         if check_point_neighbours_occupied((i, j), '2', s.white_liberties):
                             print("[DEBUG] All neighbours occupied, but valid position.")
-                            moves.append((s.to_move, i, j))
+                            moves.append((s.to_move, i + 1, j + 1))
 
         return moves
 
