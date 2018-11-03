@@ -63,15 +63,15 @@ class Game(games.Game):
         black_player_liberties = [l for liberty in s.black_liberties for l in liberty]
         white_player_liberties = [l for liberty in s.white_liberties for l in liberty]
 
-        white_player_result = float(len(white_player_liberties))/len(s.white_stones)
-        black_player_result = float(len(black_player_liberties))/len(s.black_stones)
+        white_player_result = float(len(white_player_liberties))/(float(len(s.white_stones))/4)
+        black_player_result = float(len(black_player_liberties))/(float(len(s.black_stones))/4)
 
         if p == 1:
             # Evaluation to player 1 - black
-            return (black_player_result - white_player_result)/s.board_size
+            return (black_player_result - white_player_result)/(s.board_size*s.board_size)
         else:
             # Evaluation to player 2 - white
-            return (white_player_result - black_player_result)/s.board_size
+            return (white_player_result - black_player_result)/(s.board_size*s.board_size)
 
     def actions(self, s):
         """Returns a list of valid moves at state s."""
