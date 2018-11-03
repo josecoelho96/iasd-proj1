@@ -153,9 +153,21 @@ class Game(games.Game):
 
             return False
 
+        def check_if_liberty(point, black_liberties, white_liberties):
+            for liberty in black_liberties:
+                if point in liberty:
+                    return True
+
+            for liberty in white_liberties:
+                if point in liberty:
+                    return True
+
+            return False
         ############################ AUX FUNCTIONS ############################
 
         moves = []
+        moves_liberty = []
+
         for i in range(s.board_size):
             for j in range(s.board_size):
                 if s.board_map[i][j] == '0':
@@ -164,7 +176,10 @@ class Game(games.Game):
                     # Check if the current position has at least an empty neighbour
                     if check_point_neighbours_empty((i, j), s.board_map, s.board_size):
                         # # print("[DEBUG] Empty neighbour found, valid move.")
-                        moves.append((s.to_move, i + 1, j + 1))
+                        if check_if_liberty((i, j), s.black_liberties, s.white_liberties):
+                            moves_liberty.append((s.to_move, i + 1, j + 1))
+                        else:
+                            moves.append((s.to_move, i + 1, j + 1))
                         continue
 
                     if s.to_move == 1: # Black player
@@ -172,29 +187,44 @@ class Game(games.Game):
                         if check_if_eye((i, j), '1', s.board_map, s.board_size):
                             # # print("[DEBUG] Eye. Not a valid move.")
                             if check_if_can_kill((i, j), s.white_liberties):
-                                moves.append((s.to_move, i + 1, j + 1))
+                                if check_if_liberty((i, j), s.black_liberties, s.white_liberties):
+                                    moves_liberty.append((s.to_move, i + 1, j + 1))
+                                else:
+                                    moves.append((s.to_move, i + 1, j + 1))
                             continue
                         # Check if is not the only liberty of a player's group.
                         if check_point_neighbours_occupied((i, j), '1', s.black_liberties):
                             # # print("[DEBUG] All neighbours occupied, but valid position.")
-                            moves.append((s.to_move, i + 1, j + 1))
+                            if check_if_liberty((i, j), s.black_liberties, s.white_liberties):
+                                moves_liberty.append((s.to_move, i + 1, j + 1))
+                            else:
+                                moves.append((s.to_move, i + 1, j + 1))
                     else: # White player
                         # Check if new stone will be circled by enemy stones (eye)
                         if check_if_eye((i, j), '2', s.board_map, s.board_size):
                             # # print("[DEBUG] Eye. Not a valid move.")
                             if check_if_can_kill((i, j), s.black_liberties):
-                                moves.append((s.to_move, i + 1, j + 1))
+                                if check_if_liberty((i, j), s.black_liberties, s.white_liberties):
+                                    moves_liberty.append((s.to_move, i + 1, j + 1))
+                                else:
+                                    moves.append((s.to_move, i + 1, j + 1))
                             continue
                         # Check if is not the only liberty of a player's group.
                         if check_point_neighbours_occupied((i, j), '2', s.white_liberties):
                             # # print("[DEBUG] All neighbours occupied, but valid position.")
-                            moves.append((s.to_move, i + 1, j + 1))
+                            if check_if_liberty((i, j), s.black_liberties, s.white_liberties):
+                                moves_liberty.append((s.to_move, i + 1, j + 1))
+                            else:
+                                moves.append((s.to_move, i + 1, j + 1))
 
-        if moves:
+        moves_liberty += moves
+
+        if moves_liberty:
             s.moves_available = 1
         else:
             s.moves_available = 0
-        return moves
+
+        return moves_liberty
 
     def result(self, s, a):
         """Returns the sucessor game state after playing move a at state s."""
