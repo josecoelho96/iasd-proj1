@@ -21,30 +21,21 @@ def main():
     # file_path = "maps/custom-map7.map"
     # file_path = "maps/tests/3-3.map"
     # file_path = "maps/tests/4-1.map"
-    file_path = "maps/tests/4-2.map"
+    # file_path = "maps/tests/5-1.map"
+    # file_path = "maps/tests/5-2.map"
+    # file_path = "maps/tests/5-3.map"
+    # file_path = "maps/tests/5-4.map"
+    # file_path = "maps/tests/5-5.map"
+    file_path = "maps/tests/5-6.map"
 
 
     with open(file_path) as f:
         state = game.load_board(f)
 
     print("Board loaded.")
-
-    print("actions(s) = {}".format(game.actions(state)))
+    print("alpha_beta_cutoff_search(s,g) = {}".format(games.alphabeta_cutoff_search(state, game)))
+    # print("alpha_beta_cutoff_search(s,g,d=3) = {}".format(games.alphabeta_cutoff_search(state, game, d=3)))
 
 
 if __name__ == "__main__":
     main()
-
-
-# print("game.terminal_test(state) = {}".format(game.terminal_test(state)))
-# # terminal_test(s) = False
-# print("Move: (2, 5, 4)")
-# state = game.result(state, (2, 5, 4))
-# print("game.terminal_test(state) = {}".format(game.terminal_test(state)))
-# # terminal_test(s) = True
-
-# print("utility(s,1) = {}".format(game.utility(state, 1)))
-# # utility(s,1) = -1
-
-# print("utility(s,2) = {}".format(game.utility(state, 2)))
-# # utility(s,2) = 1
