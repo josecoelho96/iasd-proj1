@@ -3,49 +3,48 @@
 import go
 import games
 
-print("Welcome! Starting game...")
 
-# file_path = "maps/statement-map.map"
-# file_path = "maps/custom-map1.map"
-# file_path = "maps/eye.map"
-# file_path = "maps/100.map"
-# file_path = "maps/1000.map"
-# file_path = "maps/custom-map2.map"
-# file_path = "maps/custom-map3.map"
-file_path = "maps/custom-map4.map"
-# file_path = "maps/custom-map5.map"
-# file_path = "maps/custom-map6.map"
-# file_path = "maps/custom-map7.map"
+def main():
+    print("Welcome! Starting game...")
+    game = go.Game()
 
-
-
-game = go.Game()
-
-with open(file_path) as f:
-    state = game.load_board(f)
-
-print("Board loaded.")
+    # file_path = "maps/statement-map.map"
+    # file_path = "maps/custom-map1.map"
+    # file_path = "maps/eye.map"
+    # file_path = "maps/100.map"
+    # file_path = "maps/1000.map"
+    # file_path = "maps/custom-map2.map"
+    # file_path = "maps/custom-map3.map"
+    # file_path = "maps/custom-map4.map"
+    # file_path = "maps/custom-map5.map"
+    # file_path = "maps/custom-map6.map"
+    # file_path = "maps/custom-map7.map"
+    # file_path = "maps/tests/3-3.map"
+    # file_path = "maps/tests/4-1.map"
+    file_path = "maps/tests/4-2.map"
 
 
-while not game.terminal_test(state):
-    game.display(state)
-    print("Valid moves: {}".format(game.actions(game.state)))
-    move = input("Your move: ")
-    point = move.split()
-    state = game.result(state, (1, int(point[0]), int(point[1])))
+    with open(file_path) as f:
+        state = game.load_board(f)
 
-    computer_move = games.alphabeta_cutoff_search(state, game, d=4, cutoff_test=None, eval_fn=None)
-    print(computer_move)
-    state = game.result(state, computer_move)
-    game.display(state)
+    print("Board loaded.")
+
+    print("actions(s) = {}".format(game.actions(state)))
 
 
-# print("Is terminal?: {}".format(game.terminal_test(game.state)))
-# print("ut 1. {}".format(game.utility(state, 1)))
-# print("ut 2. {}".format(game.utility(state, 2)))
-# print("Is terminal?: {}".format(game.terminal_test(game.state)))
-# print("ut 1. {}".format(game.utility(state, 1)))
-# print("ut 2. {}".format(game.utility(state, 2)))
-# game.display(game.state)
+if __name__ == "__main__":
+    main()
 
-# print("AB: {}".format(
+
+# print("game.terminal_test(state) = {}".format(game.terminal_test(state)))
+# # terminal_test(s) = False
+# print("Move: (2, 5, 4)")
+# state = game.result(state, (2, 5, 4))
+# print("game.terminal_test(state) = {}".format(game.terminal_test(state)))
+# # terminal_test(s) = True
+
+# print("utility(s,1) = {}".format(game.utility(state, 1)))
+# # utility(s,1) = -1
+
+# print("utility(s,2) = {}".format(game.utility(state, 2)))
+# # utility(s,2) = 1
