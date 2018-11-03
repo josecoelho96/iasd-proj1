@@ -43,17 +43,22 @@ class Game(games.Game):
                 return 0
 
         if self.terminal_test(s):
-            if s.to_move == '1':
-                if p == 2:
-                    return 1
-                else:
-                    return -1
+            if p == 1:
+                # player 1 - black
+                for liberty in s.black_liberties:
+                    if not liberty:
+                        return -1
+                for liberty in s.white_liberties:
+                    if not liberty:
+                        return 1
             else:
-                if p == 1:
-                    return 1
-                else:
-                    return -1
-
+                # player 2 - white
+                for liberty in s.black_liberties:
+                    if not liberty:
+                        return 1
+                for liberty in s.white_liberties:
+                    if not liberty:
+                        return -1
 
         black_player_liberties = [l for liberty in s.black_liberties for l in liberty]
         white_player_liberties = [l for liberty in s.white_liberties for l in liberty]
@@ -99,13 +104,15 @@ class Game(games.Game):
         def check_point_neighbours_occupied(point, player, liberties):
             """Returns True if is not the only liberty of a player's group."""
 
+            c = 1
             for liberty in liberties:
                 if point in liberty and len(liberty) == 1:
-                    # only liberty is this point, do not play there
-                    return False
+                    c += 1
 
-            # None of the liberties matched the condition, so return True
-            return True
+            if c == len(liberties):
+                return False
+            else:
+                return True
 
         def check_if_eye(point, player, board_map, board_size):
             """Return True if position is an eye (circled by enemy)."""
@@ -134,6 +141,17 @@ class Game(games.Game):
             # None of the above, so return False
             return True
 
+        def check_if_can_kill(point, liberties):
+            """Return True if you will kill your enemy's group."""
+
+            i = point[0]
+            j = point[1]
+
+            for liberty in liberties:
+                if point in liberty and len(liberty) == 1:
+                    return True
+
+            return False
 
         ############################ AUX FUNCTIONS ############################
 
@@ -153,6 +171,8 @@ class Game(games.Game):
                         # Check if new stone will be circled by enemy stones (eye)
                         if check_if_eye((i, j), '1', s.board_map, s.board_size):
                             # # print("[DEBUG] Eye. Not a valid move.")
+                            if check_if_can_kill((i, j), s.white_liberties):
+                                moves.append((s.to_move, i + 1, j + 1))
                             continue
                         # Check if is not the only liberty of a player's group.
                         if check_point_neighbours_occupied((i, j), '1', s.black_liberties):
@@ -162,6 +182,8 @@ class Game(games.Game):
                         # Check if new stone will be circled by enemy stones (eye)
                         if check_if_eye((i, j), '2', s.board_map, s.board_size):
                             # # print("[DEBUG] Eye. Not a valid move.")
+                            if check_if_can_kill((i, j), s.black_liberties):
+                                moves.append((s.to_move, i + 1, j + 1))
                             continue
                         # Check if is not the only liberty of a player's group.
                         if check_point_neighbours_occupied((i, j), '2', s.white_liberties):
