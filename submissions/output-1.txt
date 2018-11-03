@@ -1,0 +1,176 @@
+----- TEST 01 -----
+Loading board
++-----+
+|.@@..|
+|.O@@.|
+|OO@OO|
+|OOO@.|
+|O@@@.|
++-----+
+to_move(s) = 1
+Loading board
++---------+
+|.@@......|
+|.O@@.....|
+|OO@OO....|
+|OOO@.....|
+|O@@@.....|
+|.........|
+|.........|
+|.........|
+|.........|
++---------+
+to_move(s) = 2
+GRADE: 1 point(s)
+----- TEST 02 -----
+Loading board
++---+
+|O@.|
+|...|
+|...|
++---+
+terminal_test(s) = False
+Move: (1, 2, 1)
+terminal_test(s) = True
+Loading board
++-----+
+|@.@@O|
+|.@@@.|
+|@@.OO|
+|@OOOO|
+|OO.O.|
++-----+
+terminal_test(s) = False
+Move: (1, 2, 5)
+terminal_test(s) = True
+Loading board
++-----+
+|@.@@O|
+|.@@@.|
+|@@.OO|
+|@OOOO|
+|OO.O.|
++-----+
+terminal_test(s) = False
+Move: (2, 2, 5)
+terminal_test(s) = False
+GRADE: 1 point(s)
+----- TEST 03 -----
+Loading board
++-----+
+|.....|
+|...@O|
+|..@OO|
+|..O@@|
+|.....|
++-----+
+terminal_test(s) = False
+Move: (1, 1, 5)
+terminal_test(s) = True
+utility(s,1) = 1
+utility(s,2) = -1
+Loading board
++-----+
+|O.O.O|
+|OOOOO|
+|@O@O@|
+|@O@@@|
+|@@@.@|
++-----+
+terminal_test(s) = False
+Move: (2, 1, 2)
+terminal_test(s) = False
+Loading board
++-----+
+|O.O.O|
+|OOOOO|
+|@O@O@|
+|@O@@@|
+|@@@.@|
++-----+
+terminal_test(s) = False
+Move: (2, 5, 4)
+terminal_test(s) = True
+utility(s,1) = 1
+utility(s,2) = -1
+GRADE: 0 point(s)
+----- TEST 04 -----
+Loading board
++-------+
+|@.@..@.|
+|.@@@@@.|
+|@OOO.@O|
+|@OO@@@@|
+|@@OOO@@|
+|OOO.OOO|
+|.OO.OO.|
++-------+
+actions(s) = [(1, 1, 2), (1, 1, 4), (1, 1, 5), (1, 1, 7), (1, 2, 7), (1, 3, 5), (1, 6, 4), (1, 7, 4)]
+GRADE: 0 point(s)
+Loading board
++-------+
+|@.@..@.|
+|.@@@@@.|
+|@OOO.@O|
+|@OO@@@@|
+|@@OOO@@|
+|OOO.OOO|
+|.OO.OO.|
++-------+
+actions(s) = [(2, 1, 4), (2, 1, 5), (2, 1, 7), (2, 2, 7), (2, 3, 5), (2, 6, 4), (2, 7, 1), (2, 7, 4), (2, 7, 7)]
+GRADE: 0 point(s)
+----- TEST 05 -----
+Loading board
++-----+
+|.....|
+|.....|
+|.O@O.|
+|..O@.|
+|...@.|
++-----+
+alpha_beta_cutoff_search(s,g) = (2, 4, 2)
+execution time: 31.522573 secs
+GRADE: 0 point(s)
+Loading board
++-----+
+|.....|
+|.....|
+|.O@O.|
+|..O@.|
+|.....|
++-----+
+alpha_beta_cutoff_search(s,g) = (1, 2, 4)
+execution time: -0.000495 secs
+GRADE: 0 point(s)
+Loading board
++-----+
+|.....|
+|..OO.|
+|OO@O.|
+|@@@..|
+|.@.@.|
++-----+
+alpha_beta_cutoff_search(s,g) = (1, 2, 2)
+execution time: 2.324659 secs
+GRADE: 0.5 point(s)
+Loading board
++-----+
+|.....|
+|..OO.|
+|OO@O.|
+|@@@..|
+|.@.@.|
++-----+
+alpha_beta_cutoff_search(s,g) = (2, 2, 2)
+execution time: 3.547851 secs
+GRADE: 0.5 point(s)
+Loading board
++-------+
+|.......|
+|.......|
+|...@...|
+|..O@...|
+|..@OO..|
+|.......|
+|.......|
++-------+
