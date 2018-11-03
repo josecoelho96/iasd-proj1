@@ -144,9 +144,6 @@ class Game(games.Game):
         def check_if_can_kill(point, liberties):
             """Return True if you will kill your enemy's group."""
 
-            i = point[0]
-            j = point[1]
-
             for liberty in liberties:
                 if point in liberty and len(liberty) == 1:
                     return True
