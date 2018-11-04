@@ -45,12 +45,12 @@ class Game(games.Game):
         if self.terminal_test(s):
             if p == 1:
                 # player 1 - black
-                for liberty in s.black_liberties:
-                    if not liberty:
-                        return -1
                 for liberty in s.white_liberties:
                     if not liberty:
                         return 1
+                for liberty in s.black_liberties:
+                    if not liberty:
+                        return -1
             else:
                 # player 2 - white
                 for liberty in s.black_liberties:
