@@ -43,22 +43,37 @@ class Game(games.Game):
                 return 0
 
         if self.terminal_test(s):
-            if p == 1:
-                # player 1 - black
-                for liberty in s.white_liberties:
-                    if not liberty:
-                        return 1
-                for liberty in s.black_liberties:
-                    if not liberty:
-                        return -1
-            else:
-                # player 2 - white
-                for liberty in s.black_liberties:
-                    if not liberty:
-                        return 1
-                for liberty in s.white_liberties:
-                    if not liberty:
-                        return -1
+            if p == 1: # BLACK
+                if s.to_move == 1: # LAST MOVED - 2 (WHITE)
+                    for liberty in s.black_liberties:
+                        if not liberty:
+                            return -1
+                    for liberty in s.white_liberties:
+                        if not liberty:
+                            return 1
+                else: # to_move == 2 -> LAST MOVED - 1 (BLACK)
+                    for liberty in s.white_liberties:
+                        if not liberty:
+                            return 1
+                    for liberty in s.black_liberties:
+                        if not liberty:
+                            return -1
+            else: # WHITE
+                if s.to_move == 2: # LAST MOVED - 1 (BLACK)
+                    for liberty in s.white_liberties:
+                        if not liberty:
+                            return -1
+                    for liberty in s.black_liberties:
+                        if not liberty:
+                            return 1
+                else: # LAST MOVED - 2 (WHITE)
+                    for liberty in s.black_liberties:
+                        if not liberty:
+                            return 1
+                    for liberty in s.white_liberties:
+                        if not liberty:
+                            return -1
+
 
         black_player_liberties = [len(liberty) for liberty in s.black_liberties]
         white_player_liberties = [len(liberty) for liberty in s.white_liberties]
