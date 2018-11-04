@@ -60,18 +60,22 @@ class Game(games.Game):
                     if not liberty:
                         return -1
 
-        black_player_liberties = [l for liberty in s.black_liberties for l in liberty]
-        white_player_liberties = [l for liberty in s.white_liberties for l in liberty]
-
-        white_player_result = float(len(white_player_liberties))/(float(len(s.white_stones))/4)
-        black_player_result = float(len(black_player_liberties))/(float(len(s.black_stones))/4)
+        black_player_liberties = [len(liberty) for liberty in s.black_liberties]
+        white_player_liberties = [len(liberty) for liberty in s.white_liberties]
 
         if p == 1:
-            # Evaluation to player 1 - black
-            return (black_player_result - white_player_result)/(s.board_size*s.board_size)
+            black_player_stones = [len(string) for string in s.black_stones]
+            if min(black_player_liberties) < min(white_player_liberties):
+                return float(2*min(black_player_liberties) + min(black_player_stones) - min(white_player_liberties) + sum(black_player_liberties) - sum(white_player_liberties))/(s.board_size*s.board_size)
+            else:
+                return float(min(black_player_liberties) + min(black_player_stones) - 2*min(white_player_liberties) + sum(black_player_liberties) - sum(white_player_liberties))/(s.board_size*s.board_size)
         else:
-            # Evaluation to player 2 - white
-            return (white_player_result - black_player_result)/(s.board_size*s.board_size)
+            white_player_stones = [len(string) for string in s.white_stones]
+            if min(white_player_liberties) < min(black_player_liberties):
+                return float(2*min(white_player_liberties) + min(white_player_stones) - min(black_player_liberties) + sum(white_player_liberties) - sum(black_player_liberties))/(s.board_size*s.board_size)
+            else:
+                return float(min(white_player_liberties) + min(white_player_stones) - 2*min(black_player_liberties) + sum(white_player_liberties) - sum(black_player_liberties))/(s.board_size*s.board_size)
+
 
     def actions(self, s):
         """Returns a list of valid moves at state s."""
